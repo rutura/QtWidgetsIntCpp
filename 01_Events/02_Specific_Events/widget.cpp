@@ -17,7 +17,6 @@ Widget::~Widget()
     delete ui;
 }
 
-
 void Widget::mousePressEvent(QMouseEvent *event)
 {
     qDebug() << "\n=== Mouse Press Event ===";
@@ -162,8 +161,3 @@ void Widget::resizeEvent(QResizeEvent *event)
     qDebug() << "New size:" << event->size();
     qDebug() << "Spontaneous:" << event->spontaneous();
 }
-
-
-
-
-
