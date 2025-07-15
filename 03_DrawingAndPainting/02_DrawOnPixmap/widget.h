@@ -17,15 +17,7 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-protected:
-    void paintEvent(QPaintEvent *event) override;
-
-
-private:
-    void drawRectangles(QPainter& painter);
-
 private:
     Ui::Widget *ui;
-
 };
 #endif // WIDGET_H
