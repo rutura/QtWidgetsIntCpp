@@ -10,11 +10,9 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
     //Connect water tank signals to indicator slots
-    /*
-    connect(tank, &WaterTank::normal, indicator, &Indicator::activateNormal);
-    connect(tank, &WaterTank::warning, indicator, &Indicator::activateWarning);
-    connect(tank, &WaterTank::danger, indicator, &Indicator::activateDanger);
-    */
+    connect(ui->tank, &WaterTank::normal, ui->indicator, &Indicator::activateNormal);
+    connect(ui->tank, &WaterTank::warning, ui->indicator, &Indicator::activateWarning);
+    connect(ui->tank, &WaterTank::danger, ui->indicator, &Indicator::activateDanger);
 }
 
 Widget::~Widget()

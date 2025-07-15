@@ -44,6 +44,7 @@ else()
 endif()
 
 target_link_libraries(05_PromotingWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_include_directories(05_PromotingWidgets PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
