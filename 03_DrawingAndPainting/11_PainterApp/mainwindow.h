@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "paintcanvas.h"
 #include <QPushButton>
 #include <QCheckBox>
 
@@ -29,7 +28,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    PaintCanvas* canvas{nullptr};
     QPushButton *penColorButton{nullptr};
     QPushButton *fillColorButton{nullptr};
     QCheckBox *fillCheckBox{nullptr};

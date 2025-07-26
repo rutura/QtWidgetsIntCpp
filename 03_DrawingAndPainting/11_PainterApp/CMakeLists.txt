@@ -24,7 +24,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         resource.qrc
-        paintcanvas.h paintcanvas.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET 11_PainterApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

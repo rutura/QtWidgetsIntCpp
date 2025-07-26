@@ -11,9 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //Create the canvas object
-    canvas = new PaintCanvas(this);
-    setCentralWidget(canvas);
 
     //Pen width
     QLabel * penWidthLabel = new QLabel("Pen Width",this);
