@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(11_PainterApp VERSION 0.1 LANGUAGES CXX)
+project(12_WalterLevelMonitorImprovd VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -14,45 +14,48 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        indicator.h
+        indicator.cpp
+        watertank.h
+        watertank.cpp
+        widget.cpp
+        widget.h
+        widget.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(11_PainterApp
+    qt_add_executable(12_WalterLevelMonitorImprovd
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        resource.qrc
-        paintcanvas.h paintcanvas.cpp
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET 11_PainterApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET 12_WalterLevelMonitorImprovd APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(11_PainterApp SHARED
+        add_library(12_WalterLevelMonitorImprovd SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(11_PainterApp
+        add_executable(12_WalterLevelMonitorImprovd
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(11_PainterApp PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
+target_link_libraries(12_WalterLevelMonitorImprovd PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.11_PainterApp)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.12_WalterLevelMonitorImprovd)
 endif()
-set_target_properties(11_PainterApp PROPERTIES
+set_target_properties(12_WalterLevelMonitorImprovd PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -61,12 +64,12 @@ set_target_properties(11_PainterApp PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS 11_PainterApp
+install(TARGETS 12_WalterLevelMonitorImprovd
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(11_PainterApp)
+    qt_finalize_executable(12_WalterLevelMonitorImprovd)
 endif()

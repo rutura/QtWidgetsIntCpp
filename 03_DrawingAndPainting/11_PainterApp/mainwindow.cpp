@@ -11,11 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //Set up the canvas
+    canvas = new PaintCanvas(this);
+    setCentralWidget(canvas);
+
 
     //Pen width
     QLabel * penWidthLabel = new QLabel("Pen Width",this);
     QSpinBox * penWidthSpinBox = new QSpinBox(this);
-    penWidthSpinBox->setValue(2);
+    penWidthSpinBox->setValue(canvas->getPenWidth());
     penWidthSpinBox->setRange(1,15);
 
     //Pen color
@@ -28,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Fill
     fillCheckBox = new QCheckBox("Fill Shape",this);
+    fillCheckBox->setChecked(canvas->getFill());
 
     //Tool Buttons
     QPushButton * rectButton = new QPushButton(this);
@@ -45,15 +50,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //Connect the tool buttons to the slots
-
     connect(rectButton,&QPushButton::clicked,[=](){
         //Set current tool to rect
-
+        canvas->setTool(PaintCanvas::ToolType::Rect);
         statusBar()->showMessage("Current tool : Rect");
     });
 
     connect(penButton,&QPushButton::clicked,[=](){
         //Set current tool to rect
+        canvas->setTool(PaintCanvas::ToolType::Pen);
+        statusBar()->showMessage("Current tool : Rect");
 
         statusBar()->showMessage("Current tool : Pen");
     });
@@ -61,14 +67,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ellipseButton,&QPushButton::clicked,[=](){
         //Set current tool to rect
-
+        canvas->setTool(PaintCanvas::ToolType::Ellipse);
         statusBar()->showMessage("Current tool : Ellipse");
     });
 
 
     connect(eraserButton,&QPushButton::clicked,[=](){
         //Set current tool to rect
-
+        canvas->setTool(PaintCanvas::ToolType::Eraser);
         statusBar()->showMessage("Current tool : Eraser");
     });
 
@@ -91,6 +97,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->mainToolBar->addWidget(rectButton);
     ui->mainToolBar->addWidget(ellipseButton);
     ui->mainToolBar->addWidget(eraserButton);
+
+    //Set the button colors
+    QString css = QString("background-color : %1").arg(canvas->getPenColor().name());
+    penColorButton->setStyleSheet(css);
+
+    css = QString("background-color : %1").arg(canvas->getFillColor().name());
+    fillColorButton->setStyleSheet(css);
 }
 
 MainWindow::~MainWindow()
@@ -100,20 +113,33 @@ MainWindow::~MainWindow()
 
 void MainWindow::penWidthChanged(int width)
 {
+    canvas->setPenWidth(width);
 
 }
 
 void MainWindow::changePenColor()
 {
+    QColor color = QColorDialog::getColor(canvas->getPenColor());
+    if(color.isValid()){
+        canvas->setPenColor(color);
+        QString css = QString("background-color : %1").arg(color.name());
+        penColorButton->setStyleSheet(css);
+    }
 
 }
 
 void MainWindow::changeFillColor()
 {
+    QColor color = QColorDialog::getColor(canvas->getFillColor());
+    if(color.isValid()){
+        canvas->setFillColor(color);
+        QString css = QString("background-color : %1").arg(color.name());
+        fillColorButton->setStyleSheet(css);
+    }
 
 }
 
 void MainWindow::changeFillProperty()
 {
-
+    canvas->setFill(fillCheckBox->isChecked());
 }
